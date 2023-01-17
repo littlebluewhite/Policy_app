@@ -27,7 +27,7 @@ func NewReceipt(date time.Time, spend int, _type string) Receipt {
 }
 
 func (r *receipt) String() string {
-	return fmt.Sprintf("日期: %v, 花費: %v, 類型: %v", r.date, r.spend, r._type)
+	return fmt.Sprintf("日期: %v, 花費: %v, 類型: %v\n", r.date.Format("2006/01/02"), r.spend, r._type)
 }
 
 func (r *receipt) GetTimestamp() int {

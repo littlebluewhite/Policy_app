@@ -7,7 +7,6 @@ import (
 	"encoding/csv"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 )
 
@@ -30,7 +29,7 @@ func main() {
 		money, _ := strconv.Atoi(item[1])
 		doc := receipt.NewReceipt(util.StrToTime(item[0]), money, item[2])
 		receipts = append(receipts, doc)
-		fmt.Println(doc)
+		fmt.Print(doc)
 	}
 	fmt.Print("最大金額: $ ")
 	var dollar int
@@ -38,27 +37,11 @@ func main() {
 	fmt.Print("幾個部位: ")
 	var partial int
 	fmt.Scanln(&partial)
-	fmt.Print("是否重複: ")
-	var isDuplicate bool
-	fmt.Scanln(&isDuplicate)
-	var duplicate int
-	if isDuplicate {
-		fmt.Print("重複次數: ")
-		fmt.Scanln(&duplicate)
-
-	} else {
-		c := receiptClass.NewReceiptClass(receipts, dollar, partial, duplicate)
-		NoneDuplicateMethod(c)
-	}
+	c := receiptClass.NewReceiptClass(receipts, dollar, partial)
+	NoneDuplicateMethod(c)
 }
 
-func duplicateMethod() {
-
-}
-
-func NoneDuplicateMethod(receiptclass receiptClass.ReceiptClass) {
-	sort.Slice(receipts, func(i, j int) bool {
-		return receipts[i].GetSpend() > receipts[j].GetSpend()
-	})
-	fmt.Println(receipts)
+func NoneDuplicateMethod(receiptClass receiptClass.ReceiptClass) {
+	receiptClass.Category()
+	fmt.Println(receiptClass)
 }
